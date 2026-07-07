@@ -1,0 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
+export default function Content(){const[ok,setOk]=useState(false);const[posts,setPosts]=useState<any[]>([]);const[msg,setMsg]=useState('載入中...');useEffect(()=>{init()},[]);async function init(){const{data:{user}}=await supabase.auth.getUser();if(!user){setMsg('請先登入會員。');return}const{data}=await supabase.from('subscriptions').select('*').eq('member_id',user.id).eq('status','active').gte('end_at',new Date().toISOString()).limit(1);if(!data||data.length===0){setMsg('尚未開通會員。');return}setOk(true);const{data:content}=await supabase.from('content_posts').select('*').order('created_at',{ascending:false});setPosts(content||[]);setMsg('')}return <section className="wrap"><h1>會員內容</h1>{msg&&<p className="msg">{msg} <Link href="/plans">查看方案</Link></p>}{ok&&<div className="grid">{posts.map(p=><div className="card" key={p.id}><span className="badge">{p.category}</span><h2>{p.title}</h2><div className="content-box">{p.content}</div></div>)}</div>}</section>}
