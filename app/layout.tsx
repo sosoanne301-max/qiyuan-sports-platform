@@ -14,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Link href="/" className="brand">齊元賽事資訊平台</Link>
           <nav className="navlinks">
             <Link href="/plans">會員方案</Link>
+            <Link href="/preview/nba">免費預覽</Link>
             <Link href="/content">會員內容</Link>
             <Link href="/member">會員中心</Link>
             <Link href="/payment">付款回填</Link>

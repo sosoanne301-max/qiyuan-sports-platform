@@ -1,29 +1,44 @@
 import Link from 'next/link';
 
 const scoreCards = [
-  { sport: '世足', league: 'World Cup 2026', game: 'Portugal 0 - 1 Spain', status: 'Round of 16 / Final', note: '近期賽事比分' },
-  { sport: '世足', league: 'World Cup 2026', game: 'United States 1 - 4 Belgium', status: 'Round of 16 / Final', note: '近期賽事比分' },
-  { sport: '職棒', league: 'MLB', game: 'Brewers @ Cardinals', status: '07/07 11:15 PDT', note: '近期賽程' },
-  { sport: '職棒', league: 'MLB', game: 'Cubs @ Orioles', status: '07/07 15:35 PDT', note: '近期賽程' },
-  { sport: 'NBA', league: 'NBA', game: '近期無例行賽場次', status: 'Offseason', note: '可於後台更新資料' },
+  { sport: 'NBA', league: 'NBA', game: 'Celtics 112 - 105 Lakers', status: '近期比分示例', note: '非會員預覽' },
+  { sport: 'FIFA', league: 'World Cup / 國際足球', game: 'Spain 1 - 0 Portugal', status: '近期比分示例', note: '非會員預覽' },
+  { sport: 'CPBL', league: '中華職棒', game: '兄弟 5 - 3 統一', status: '近期比分示例', note: '非會員預覽' },
+  { sport: 'MLB', league: 'Major League Baseball', game: 'Dodgers 6 - 4 Giants', status: '近期比分示例', note: '非會員預覽' },
 ];
 
 const sportCards = [
   {
     title: 'NBA 籃球資訊',
-    text: '整理球隊狀態、近期賽程、比分摘要與會員內容。',
+    text: '非會員可先查看近期比分、基礎數據與賽前觀察摘要。',
     image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80',
+    href: '/preview/nba',
   },
   {
-    title: '世足足球資訊',
-    text: '提供足球賽事、盃賽重點、隊伍資訊與近期比分整理。',
+    title: 'FIFA 足球資訊',
+    text: '提供國際足球賽事、隊伍近況、比分摘要與觀察重點。',
     image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=900&q=80',
+    href: '/preview/fifa',
   },
   {
-    title: '職棒賽事資訊',
-    text: '彙整棒球賽程、球隊資訊、比分摘要與會員專區內容。',
+    title: '台灣職棒資訊',
+    text: '整理中華職棒近期比分、投打數據與賽前重點。',
     image: 'https://images.unsplash.com/photo-1508344928928-7165b67de128?auto=format&fit=crop&w=900&q=80',
+    href: '/preview/cpbl',
   },
+  {
+    title: 'MLB 棒球資訊',
+    text: '提供美國職棒賽程摘要、近期比分與球隊表現趨勢。',
+    image: 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&w=900&q=80',
+    href: '/preview/mlb',
+  },
+];
+
+const officialLinks = [
+  { name: 'NBA 官網', href: 'https://www.nba.com/' },
+  { name: 'FIFA 官網', href: 'https://www.fifa.com/' },
+  { name: '台灣棒球官網', href: 'https://www.cpbl.com.tw/' },
+  { name: 'MLB 官網', href: 'https://www.mlb.com/' },
 ];
 
 export default function Home() {
@@ -34,7 +49,7 @@ export default function Home() {
           <span className="eyebrow">Sports Information Membership</span>
           <h1>齊元賽事資訊平台</h1>
           <p className="muted hero-copy">
-            專注提供 NBA、世足、職棒等公開賽事資訊整理，包含近期比分、賽程摘要、球隊資訊與會員專區內容，協助會員快速掌握每日重點賽事動態。
+            專注提供 NBA、FIFA、台灣職棒、MLB 等公開賽事資訊整理，包含近期比分、賽程摘要、球隊資訊與會員專區內容，協助會員快速掌握每日重點賽事動態。
           </p>
           <div className="hero-actions">
             <Link className="btn" href="/register">加入會員</Link>
@@ -46,7 +61,7 @@ export default function Home() {
       <section className="wrap section-block">
         <div className="section-title">
           <h2>近期場次比分 / 賽程</h2>
-          <p className="muted">提供近期賽事比分與賽程摘要，方便會員快速瀏覽每日重點賽事資訊。</p>
+          <p className="muted">提供近期賽事比分與賽程摘要，完整數據與會員觀察內容開通後可查看。</p>
         </div>
         <div className="score-grid">
           {scoreCards.map((item) => (
@@ -66,17 +81,33 @@ export default function Home() {
       <section className="wrap section-block">
         <div className="section-title">
           <h2>賽事資訊分類</h2>
-          <p className="muted">以簡潔圖片卡片呈現 NBA、世足與職棒資訊分類，瀏覽更直覺。</p>
+          <p className="muted">點擊下方分類，可查看非會員搶先看的比分、基礎數據與賽前觀察摘要。</p>
         </div>
         <div className="sports-grid">
           {sportCards.map((item) => (
-            <article className="image-card" key={item.title}>
+            <Link className="image-card clickable-card" href={item.href} key={item.title}>
               <div className="image-thumb" style={{ backgroundImage: `url(${item.image})` }} />
               <div className="image-body">
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
+                <span className="card-link">查看免費預覽 →</span>
               </div>
-            </article>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="wrap section-block">
+        <div className="section-title">
+          <h2>官方賽事連結</h2>
+          <p className="muted">以下為各賽事官方網站連結，方便會員查閱公開賽事資訊。</p>
+        </div>
+        <div className="official-link-grid">
+          {officialLinks.map((item) => (
+            <a className="official-link-card" href={item.href} target="_blank" rel="noopener noreferrer" key={item.name}>
+              <span>{item.name}</span>
+              <strong>前往官網</strong>
+            </a>
           ))}
         </div>
       </section>
@@ -91,8 +122,8 @@ export default function Home() {
           <p>支援人工付款回填，管理員確認後即可開通會員期限。</p>
         </div>
         <div className="card light-card">
-          <h3>簡易後台管理</h3>
-          <p>可審核訂單、開通會員，後續可再擴充比分與內容管理。</p>
+          <h3>公開資訊整理</h3>
+          <p>平台以公開賽事資料整理與內容摘要為主，不提供投注、下注或保證獲利服務。</p>
         </div>
       </section>
     </>
